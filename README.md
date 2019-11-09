@@ -4,3 +4,5 @@
  1 function
  2 gradient of the function
  3 hessian of the function
+
+ I have provided one test function to test the code.
