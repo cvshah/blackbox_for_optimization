@@ -15,7 +15,7 @@ def f(x):
     return obj
 
 # Start location
-x_start = [-1,1]
+x_start = [0,0]
 
 # Design variables at mesh points
 i1 = np.arange(-2.0, 2.0, 0.01)
@@ -127,7 +127,7 @@ print('Best solution: ' + str(xc))
 print('Best objective: ' + str(fc))
 
 plt.plot(x[:,0],x[:,1],'y-o')
-plt.savefig('contour.png')
+#plt.savefig('contour.png')
 
 fig = plt.figure()
 ax1 = fig.add_subplot(211)
@@ -139,6 +139,6 @@ ax2.plot(x[:,1],'g--')
 ax2.legend(['x1','x2'])
 
 # Save the figure as a PNG
-plt.savefig('iterations.png')
+#plt.savefig('iterations.png')
 
 plt.show()

@@ -1,16 +1,18 @@
 import numpy as np
 
+
+
+
 def backtracking_line_search(func, x_k, p_k, g_x_k, alpha, rho, c1):
     f_x_k = func.evaluate_function(x_k)
     number_function_call_bls = 0
-    number_function_call_bls = number_function_call_bls + 1
+#    number_function_call_bls = number_function_call_bls + 1
     f_x_kplus1 = func.evaluate_function(x_k + p_k)
     number_function_call_bls = number_function_call_bls +1
     while (f_x_kplus1 > f_x_k + c1 * alpha * np.dot(g_x_k, p_k)):
         alpha = rho * alpha
         f_x_kplus1 = func.evaluate_function(x_k + alpha * p_k)
         number_function_call_bls = number_function_call_bls + 1
-    print(number_function_call_bls)
     return alpha, number_function_call_bls
 
 def steepestdecent(func, x_k, max_iteration = 5000, abs_tol = 10**(-5), line_search = False, alpha = 1, rho = 0.8, c1 = 0.01):
@@ -82,7 +84,7 @@ def BFGSVK(func, x_k, max_iteration = 5000, abs_tol = 10**(-5), line_search = Fa
     return x_k, n, norm_g_x_k_matrix
     # end loop
 
-def BFGSVK_1(func, x_k, max_iteration = 500, abs_tol = 10**(-5), line_search = False, alpha = 1, rho = 0.1, c1 = 0.01):
+def BFGSVK_1(func, x_k, max_iteration = 5000, abs_tol = 10**(-5), line_search = False, alpha = 1, rho = 0.1, c1 = 0.01):
     # choosing an initial approximat hessian B_0
     v_k = np.identity(len(x_k))
     s_k = np.ones(len(x_k))
@@ -111,7 +113,6 @@ def BFGSVK_1(func, x_k, max_iteration = 500, abs_tol = 10**(-5), line_search = F
             alpha_ = backtracking_line_search(func, x_k, p_k, g_x_k, alpha, rho, c1)
             alpha = alpha_[0]         
             number_function_call += alpha_[1]
-            print(number_function_call)
         else:
             alpha = 1
         # update the design variables x_k = x_k + alpha * p_k
