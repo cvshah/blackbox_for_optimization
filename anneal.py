@@ -11,7 +11,7 @@ from random import seed, gauss
 def f(x):
     x1 = x[0]
     x2 = x[1]
-    obj = (1 - x2) ** 2 + 100 * (x2 - x1 ** 2) ** 2+gauss(0,1)
+    obj = (1 - x2) ** 2 + 100 * (x2 - x1 ** 2) ** 2+ 10*gauss(0,1)
     return obj
 
 # Start location

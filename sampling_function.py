@@ -1,23 +1,23 @@
 import numpy as np
-#import time
+import time
 
 def backtracking_line_search(func, x_k, p_k, g_x_k, alpha, rho, c1, f_x_k, norm_g_x_k):
     number_function_call_bls = 0
-    nk = 0
+    nk = 1
     #checking the gradient of the function
-#    if norm_g_x_k > 1:
-#        nk = 1
-#    else:
-#        nk = 1 - np.floor(np.log(norm_g_x_k))
+    if norm_g_x_k >= 1:
+        nk = 1
+    else:
+        nk = 1 - np.floor(np.log(norm_g_x_k))
     su = 0
-    nk=3
-#    nk.astype(np.int64)
-    for i0 in range(nk):
+    nk1 = nk.astype(np.int64)
+    for i0 in range(nk1):
         f_x_kp1 = func.evaluate_function(x_k + p_k)
         su = su + f_x_kp1
-    f_x_kplus1 = su /nk
+        i0 += 1
+    f_x_kplus1 = su / nk
     number_function_call_bls = number_function_call_bls + nk
-    print(f'alpha before = {alpha}')
+    #print(f'alpha before = {alpha}')
     while (f_x_kplus1 > f_x_k + c1 * alpha * np.dot(g_x_k, p_k)):
         alpha = rho * alpha
         su1 = 0
@@ -28,13 +28,14 @@ def backtracking_line_search(func, x_k, p_k, g_x_k, alpha, rho, c1, f_x_k, norm_
         #print(f_x_kplus1)
         number_function_call_bls = number_function_call_bls + nk
         #print(f'rho = {rho}')
-        #time.sleep(1)
-    print(alpha)
+        time.sleep(0.5)
+    #print(alpha)
     f_x_k = f_x_kplus1
+    print(f_x_k)
     return alpha, number_function_call_bls, f_x_k
     
 
-def BFGSVK_1(func, x_k, max_iteration = 5000, abs_tol = 10**(-5), line_search = False, alpha = 1, rho = 0.1, c1 = 0.01):
+def BFGSVK_1(func, x_k, max_iteration = 5000, abs_tol = 10**(-5), line_search = False, alpha = 1, rho = 0.95, c1 = 0.01):
     # choosing an initial approximat hessian B_0
     v_k = np.identity(len(x_k))
     s_k = np.ones(len(x_k))
